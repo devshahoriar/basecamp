@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container {
+  @apply px-3 md:px-0;
+}
+.boxShaDow {
+  box-shadow: #00000026  -5px -4px 20px 0px;
+}
