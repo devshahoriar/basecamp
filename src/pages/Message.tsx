@@ -1,4 +1,4 @@
-import React from 'react'
+
 import WithChildBoard from '../components/shared/WithChildBoard'
 
 const Message = () => {
