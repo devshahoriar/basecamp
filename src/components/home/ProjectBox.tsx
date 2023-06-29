@@ -2,6 +2,7 @@ import React from 'react'
 import { BsPinAngle, BsPinAngleFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import Avater from '../shared/Avater'
+import AvaterGroupt from '../shared/AvaterGroupt'
 
 interface ProjectBox {
   className?: string
@@ -23,13 +24,7 @@ const ProjectBox = ({ className }: ProjectBox) => {
       </button>
       <div className="h-full flex flex-col p-2">
         <div className="flex-1"></div>
-        <div className="avatar-group -space-x-3">
-          <Avater className="!h-8 !w-8" src="https://picsum.photos/200" />
-          <Avater className="!h-8 !w-8" src="https://picsum.photos/200" />
-          <Avater className="!h-8 !w-8" src="https://picsum.photos/200" />
-          <Avater className="!h-8 !w-8" src="https://picsum.photos/200" />
-          <Avater className="!h-8 !w-8" title="10+" />
-        </div>
+        <AvaterGroupt />
       </div>
     </Link>
   )
