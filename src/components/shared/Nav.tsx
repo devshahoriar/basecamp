@@ -25,7 +25,7 @@ const NavLink = ({
 
 const Nav = () => {
   return (
-    <div className='border-b'>
+    <div className='border-b backdrop-blur-md bg-white bg-opacity-5'>
       <nav className="container flex justify-between h-14 items-center md:h-16">
         <Link to="/" className="text-2xl md:flex md:items-center md:gap-2">
           <VscLayers />
