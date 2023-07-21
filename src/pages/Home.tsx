@@ -1,15 +1,21 @@
+import { useState } from 'react'
 import ProjectBox from '../components/home/ProjectBox'
 import Button from '../components/shared/Button'
+import ModelBase from '../components/shared/ModelBase'
 
 const Home = () => {
+  const [showMakeProject, setMakeProject] = useState(false)
   return (
     <main className="container">
+      {showMakeProject && <ModelBase set={setMakeProject} />}
       <section className="mt-5">
         <p className="text-center font-semibold text-lg md:text-2xl">
           Projects
         </p>
         <div className="flex flex-col gap-2 mt-5 md:flex-row md:justify-center md:gap-5">
-          <Button>Make a new Project</Button>
+          <Button onClick={() => setMakeProject((r) => !r)}>
+            Make a new Project
+          </Button>
           <Button>Invite People</Button>
         </div>
       </section>
@@ -25,7 +31,7 @@ const Home = () => {
         <ProjectBox />
         <ProjectBox />
       </section>
-      <div className='h-20'></div>
+      <div className="h-20"></div>
     </main>
   )
 }

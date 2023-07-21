@@ -6,5 +6,19 @@
   @apply px-3 md:px-0;
 }
 .boxShaDow {
-  box-shadow: #00000026  -5px -4px 20px 0px;
+  box-shadow: #00000026 -5px -4px 20px 0px;
+}
+
+.logInBg {
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+      29deg,
+      rgba(0, 0, 0, 0.9667038690476191) 49%,
+      rgba(0, 0, 0, 0.7566198354341737) 76%,
+      rgba(0, 0, 0, 0.5941548494397759) 98%
+    ),
+    url(https://source.unsplash.com/random/?city,office,programming);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
