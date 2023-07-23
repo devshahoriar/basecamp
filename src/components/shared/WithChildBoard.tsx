@@ -11,9 +11,7 @@ interface WithChildBoardProps {
 
 const WithChildBoard = ({ children }: WithChildBoardProps) => {
   const [boxNavShow, setBoxNavShow] = useState(false)
-  useClickAnyWhere(() => {
-    if (boxNavShow) setBoxNavShow(false)
-  })
+  
 
   return (
     <>

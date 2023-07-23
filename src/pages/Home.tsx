@@ -2,12 +2,13 @@ import { useState } from 'react'
 import ProjectBox from '../components/home/ProjectBox'
 import Button from '../components/shared/Button'
 import ModelBase from '../components/shared/ModelBase'
+import AddProject from '../components/shared/forHomePage/AddProject'
 
 const Home = () => {
   const [showMakeProject, setMakeProject] = useState(false)
   return (
     <main className="container">
-      {showMakeProject && <ModelBase set={setMakeProject} />}
+      {showMakeProject && <AddProject set={setMakeProject} />}
       <section className="mt-5">
         <p className="text-center font-semibold text-lg md:text-2xl">
           Projects
@@ -19,7 +20,7 @@ const Home = () => {
           <Button>Invite People</Button>
         </div>
       </section>
-      <p className="text-center text-xs mt-3">Pined and resent projects.</p>
+      <p className="text-center  mt-3">Pined and resent projects.</p>
       <section className="mt-5 grid gap-5 md:grid-cols-2 md:gap-10 lg:grid-cols-3">
         <ProjectBox />
         <ProjectBox />

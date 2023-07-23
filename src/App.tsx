@@ -11,6 +11,7 @@ import {
   Todos,
 } from './pages'
 import LogInLayout from './components/layout/LogInLayout'
+import Profile from './pages/Profile'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LogInLayout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/project/:id" element={<Project />} />
           <Route path="/project/:id/message" element={<Message />} />
           <Route path="/project/:id/todo" element={<Todos />} />
