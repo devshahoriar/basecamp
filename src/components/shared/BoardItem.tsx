@@ -9,6 +9,7 @@ interface Props {
 
 const BoardItem = ({ title = 'Message', to, emptyIcon }: Props) => {
   const { id } = useParams()
+
   return (
     <Link
       to={'/project/' + id + '/' + to}

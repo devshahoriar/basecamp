@@ -11,10 +11,7 @@ const ProjectBox = () => {
     console.log('pined')
   }
   return (
-    <Link
-      to={'/project/333'}
-      className="border rounded-md shadow-md relative"
-    >
+    <Link to={'/project/333'} className="border rounded-md shadow-md relative">
       <button className="absolute right-2 top-2" onClick={_hendelPin}>
         <BsPinAngle />
         {/* <BsPinAngleFill/> */}
@@ -31,8 +28,13 @@ const ProjectBox = () => {
           <p className="text-sm opacity-40 my-1">
             10 people | 2 Schedule | 2 task
           </p>
-          <p className='text-sm'>
-            Notice : <span className='text-red-700 line-clamp-2'>No argent notice Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos fugiat incidunt sapiente ipsum ipsam voluptatem eligendi debitis iste dicta laboriosam?</span>
+          <p className="text-sm line-clamp-2 ">
+            <span> Notice :</span>
+            <span className="text-red-700 ">
+              No argent notice Lorem ipsum dolor sit amet consectetur
+              adipisicing elit. Eos fugiat incidunt sapiente ipsum ipsam
+              voluptatem eligendi debitis iste dicta laboriosam?
+            </span>
           </p>
         </div>
         <AvaterGroupt />
