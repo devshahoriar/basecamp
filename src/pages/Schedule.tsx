@@ -7,8 +7,8 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import { useState } from 'react'
 import ModelBase from '../components/shared/ModelBase'
 import { AiOutlineClose } from 'react-icons/ai'
-import "react-date-range/dist/styles.css"; // main style file
-import "react-date-range/dist/theme/default.css"; // theme css file
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 import { DateRange } from 'react-date-range';
 import 'rc-time-picker/assets/index.css';
 import TimePicker from 'rc-time-picker';
@@ -32,7 +32,7 @@ const Schedule = () => {
   ]);
 
 
-  function onChange(value : any) {
+  function onChange(value: any) {
     console.log(value && value.format(format));
   }
 
@@ -65,7 +65,7 @@ const Schedule = () => {
                   title: 'The Title',
                   start: '2023-08-01',
                   end: '2023-08-03',
-                },{
+                }, {
                   id: 'ad',
                   title: 'The Title',
                   start: '2023-08-01',
@@ -88,7 +88,7 @@ const Schedule = () => {
                       format={format}
                       use12Hours
                       inputReadOnly
-                    
+
                     />
                     <DateRange editableDateInputs={true}
                       className='mt-4'
@@ -98,7 +98,7 @@ const Schedule = () => {
                     <input type="text" placeholder="Event Title" className="input input-bordered md:w-[60%] w-full focus:outline-none mt-4 px-2" />
                   </div>
                   <div className='flex justify-center items-center w-full'>
-                  <button className='btn mt-5'>Add Event</button>
+                    <button className='btn mt-5'>Add Event</button>
                   </div>
                 </div>
               </div>
