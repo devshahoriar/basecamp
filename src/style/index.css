@@ -62,3 +62,13 @@
 .rc-time-picker-panel-select{
   @apply scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-800
 }
+
+.basic-multi-select{
+  @apply !mt-3
+}
+.select__input-container input{
+  @apply !py-1
+}
+.select__control{
+  @apply !border-none !shadow-none
+}

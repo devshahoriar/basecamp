@@ -10,25 +10,25 @@ const data = [
 ]
 
 const Todo = ({ todo, index }: { todo: string, index: number }) => {
-  const [showColorPicker, setShowColorPicker] = useState(false)
-  return <Draggable draggableId={todo} index={index} key={index} >
+  return (
+    <Draggable draggableId={todo} index={index} key={index} >
+      {(provided) => <div {...provided.draggableProps} ref={provided.innerRef} className='border  my-2 p-2 rounded-md flex items-center justify-between relative'>
+        <div className='flex items-center gap-2'>
+          <button {...provided.dragHandleProps} ><LiaBarsSolid /></button>
+          <h1>{todo}</h1>
+        </div>
+        <div className='flex gap-3 items-center ml-3'>
+          <button className='h-4 w-4 bg-black rounded-full' />
+          <button className='h-4 w-4 bg-blue-800 rounded-full' />
+          <button className='h-4 w-4 bg-green-700 rounded-full' />
+          <button className='h-4 w-4 bg-red-700 rounded-full' />
 
-    {(provided) => <div {...provided.draggableProps}  ref={provided.innerRef} className='border  my-2 p-2 rounded-md flex items-center justify-between relative'>
-      <div className='flex items-center gap-2'>
-        <button {...provided.dragHandleProps} ><LiaBarsSolid /></button>
-        <h1>{todo}</h1>
-      </div>
-      <div className='flex gap-3 items-center ml-3'>
-        <button className='h-4 w-4 bg-black rounded-full' />
-        <button className='h-4 w-4 bg-blue-800 rounded-full' />
-        <button className='h-4 w-4 bg-green-700 rounded-full' />
-        <button className='h-4 w-4 bg-red-700 rounded-full' />
-
-        <button><BsFillPencilFill /></button>
-        <button><ImBin /></button>
-      </div>
-    </div>}
-  </Draggable>
+          <button><BsFillPencilFill /></button>
+          <button><ImBin /></button>
+        </div>
+      </div>}
+    </Draggable>
+  )
 }
 
 const Todos = () => {
@@ -43,8 +43,9 @@ const Todos = () => {
             <button className='btn'>Add Todo</button>
           </div>
           <div className='md:mx-20 mt-10'>
-            <DragDropContext onDragEnd={(result) => {console.log(result)
-             }}>
+            <DragDropContext onDragEnd={(result) => {
+              console.log(result)
+            }}>
               <Droppable droppableId='ss'>
                 {
                   (provided) => (
