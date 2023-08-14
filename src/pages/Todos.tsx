@@ -6,7 +6,7 @@ import { ImBin } from 'react-icons/im'
 import { LiaBarsSolid } from 'react-icons/lia'
 
 const data = [
-  'todo1', 'todo2', 'todo3', "todo4"
+  'todo1 sggsd sdfsdf sfsdf sdfsdf sdfsdf sd fsd f sd f sd fsd f sd f sd fsd f sd f sdf sd f sd fs df sd fsd f sd f sdf sd f sdf sd f sd fsd f sd fsd f', 'todo2', 'todo3', "todo4"
 ]
 
 const Todo = ({ todo, index }: { todo: string, index: number }) => {
@@ -18,7 +18,7 @@ const Todo = ({ todo, index }: { todo: string, index: number }) => {
         <button {...provided.dragHandleProps} ><LiaBarsSolid /></button>
         <h1>{todo}</h1>
       </div>
-      <div className='flex gap-3 items-center'>
+      <div className='flex gap-3 items-center ml-3'>
         <button className='h-4 w-4 bg-black rounded-full' />
         <button className='h-4 w-4 bg-blue-800 rounded-full' />
         <button className='h-4 w-4 bg-green-700 rounded-full' />

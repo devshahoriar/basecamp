@@ -27,7 +27,7 @@ const BoxLink = ({
 const ProjectOverFlowBoxNav = () => {
   const { id } = useParams()
   return (
-    <div className="absolute border py-3  px-5 top-10 bg-white rounded-md flex gap-8 justify-center text-2xl items-center boxShaDow z-50">
+    <div className="absolute border py-3  px-5 top-10 dark:bg-slate-800 bg-white rounded-md flex gap-8 justify-center text-2xl items-center boxShaDow z-50">
       <BoxLink title="Message" to={'/project/' + id + '/message'}>
         <MessageIcon />
       </BoxLink>
