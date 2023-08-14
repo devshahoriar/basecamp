@@ -7,11 +7,12 @@ import { useClickAnyWhere } from 'usehooks-ts'
 
 interface WithChildBoardProps {
   children?: React.ReactNode
+  isMenu?: boolean
 }
 
-const WithChildBoard = ({ children }: WithChildBoardProps) => {
+const WithChildBoard = ({ children, isMenu = true }: WithChildBoardProps) => {
   const [boxNavShow, setBoxNavShow] = useState(false)
-  
+
 
   return (
     <>
@@ -33,7 +34,7 @@ const WithChildBoard = ({ children }: WithChildBoardProps) => {
           Project name
         </Link>
       </div>
-      <Board children={children} />
+      <Board isMenu={isMenu} children={children} />
     </>
   )
 }

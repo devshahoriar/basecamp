@@ -36,6 +36,9 @@ const AddProject = ({ set }: { set: any }) => {
             className="input input-bordered w-full h-24 text-white"
           />
         </div>
+        <div>
+          
+        </div>
         <button onClick={_hendelAdd} className='btn w-full btn-sm mt-5 active:scale-95'>Create</button>
       </div>
     </ModelBase>

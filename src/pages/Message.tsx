@@ -7,7 +7,7 @@ const ItemMessage = ({l}:{l?:boolean}) => {
   return (
     <div className={`w-full flex items-start gap-1 mb-3 ${l ? "flex-row-reverse" : ""}`}>
       <Avater alt="user" src="https://picsum.photos/200" className='h-8 w-8' />
-      <p className='bg-zinc-400 p-1 rounded-lg max-w-[75%]'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde libero blanditiis nesciunt, debitis ratione molestias assumenda repudiandae earum. Veritatis reiciendis reru.</p>
+      <p className='bg-zinc-400 dark:bg-slate-800 p-1 rounded-lg max-w-[75%]'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde libero blanditiis nesciunt, debitis ratione molestias assumenda repudiandae earum. Veritatis reiciendis reru.</p>
     </div>
   )
 }

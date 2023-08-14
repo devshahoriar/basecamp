@@ -22,3 +22,43 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.fc-toolbar-title{
+  @apply !text-lg md:!text-2xl;
+}
+.fc-button{
+  @apply !text-sm md:!text-base;
+}
+
+.fc-event{
+  @apply hover:!bg-slate-800 cursor-pointer transition-colors duration-300
+}
+
+.rdrDateDisplayWrapper{
+  @apply hidden
+}
+.rdrCalendarWrapper {
+  @apply rounded-md border bg-slate-800
+}
+.rdrDayNumber span{
+  @apply !text-white opacity-80
+}
+.time-picker{
+  @apply mt-4
+}
+.rc-time-picker-input{
+  @apply !bg-slate-800 text-white opacity-70
+}
+.rc-time-picker-panel-inner{
+  @apply !bg-slate-800 text-white !shadow-lg shadow-black
+}
+.rc-time-picker-panel-select-option-selected{
+  @apply !bg-slate-700 text-white
+}
+.rc-time-picker-panel-select ul li:hover{
+  @apply !bg-slate-700 text-white
+}
+
+.rc-time-picker-panel-select{
+  @apply scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-800
+}

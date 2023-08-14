@@ -1,4 +1,4 @@
-import React from 'react'
+
 
 interface Props {
   set: any
@@ -11,7 +11,9 @@ const ModelBase = ({ set, children }: Props) => {
       onClick={() => set(false)}
       className="fixed top-0 left-0 right-0 bottom-0 bg-zinc-700 bg-opacity-30 z-50 h-screen w-screen backdrop-blur-md flex justify-center items-center "
     >
-      {children}
+     <div onClick={e => e.stopPropagation()} >
+     {children}
+     </div>
     </div>
   )
 }
