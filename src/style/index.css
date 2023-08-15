@@ -72,3 +72,24 @@
 .select__control{
   @apply !border-none !shadow-none
 }
+
+.select__control{
+  @apply  dark:!bg-slate-900 
+}
+
+.select__multi-value{
+  @apply dark:!bg-slate-800 dark:!text-white
+}
+
+.select__menu{
+  @apply dark:!bg-slate-900 dark:!text-white 
+}
+.select__option {
+  @apply dark:!bg-slate-900 dark:!text-white hover:dark:!bg-slate-800 cursor-pointer
+}
+.select__menu-list{
+  @apply scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-200 dark:scrollbar-thumb-gray-500 dark:scrollbar-track-gray-800
+}
+.select__multi-value__label{
+  @apply dark:!text-white
+}

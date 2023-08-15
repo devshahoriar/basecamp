@@ -24,16 +24,16 @@ export const colourOptions: readonly ColourOption[] = [
 ];
 
 
-const ItemQustion = () => {
-  return <button className='bg-slate-500 bg-opacity-10 p-2 rounded-md flex flex-col gap-1 w-full hover:bg-opacity-20 active:scale-[99.5%]'>
+const ItemQustion = ({ set }: any) => {
+  return <button onClick={()=> set(true)} className='bg-slate-500 bg-opacity-10 p-2 rounded-md flex flex-col gap-1 w-full hover:bg-opacity-20 active:scale-[99.5%]'>
     <h1 className='line-clamp-1 text-xl'>This is qustion title?</h1>
     <div className='flex items-center justify-between w-full'>
       <div className='flex gap-5'>
         <p className='text-start'>3 Answare</p>
         <div className='flex gap-2'>
-          <span className='bg-slate-400 p-1 text-xs rounded-md'>Javascript</span>
-          <span className='bg-slate-400 p-1 text-xs rounded-md'>Pyhton</span>
-          <span className='bg-slate-400 p-1 text-xs rounded-md'>Php</span>
+          <span className='bg-slate-400 dark:bg-slate-950 p-1 text-xs rounded-md'>Javascript</span>
+          <span className='bg-slate-400 dark:bg-slate-950  p-1 text-xs rounded-md'>Pyhton</span>
+          <span className='bg-slate-400 dark:bg-slate-950  p-1 text-xs rounded-md'>Php</span>
         </div>
       </div>
       <div className='flex gap-2'>
@@ -46,6 +46,7 @@ const ItemQustion = () => {
 
 const Qustions = () => {
   const [addQustion, setAddQustion] = useState(false)
+  const [showFullQustion, setShowFullQustion] = useState(false)
   return (
     <main>
       <div className="container mt-5">
@@ -56,21 +57,21 @@ const Qustions = () => {
           </div>
           <div className="flex flex-col mt-5">
             <div className=" flex flex-col gap-5">
-              <ItemQustion />
-              <ItemQustion />
-              <ItemQustion />
-              <ItemQustion />
+              <ItemQustion set={setShowFullQustion} />
+              <ItemQustion set={setShowFullQustion} />
             </div>
             <div className="divider">Resolved qustion</div>
             <div className=" flex flex-col gap-5">
-              <ItemQustion />
-              <ItemQustion />
-              <ItemQustion />
-              <ItemQustion />
+              <ItemQustion set={setShowFullQustion} />
+              <ItemQustion set={setShowFullQustion} />
+
             </div>
           </div>
         </WithChildBoard>
       </div>
+      {showFullQustion && <ModelBase set={setShowFullQustion}>
+        <h1>Shuvo</h1>
+      </ModelBase>}
       {addQustion && <ModelBase set={setAddQustion}>
         <div className='bg-slate-300 dark:bg-slate-800 w-full md:w-[600px] relative rounded-lg shadow-xl mx-0 scale-90 md:scale-100 md:px-3 py-3'>
           <button onClick={() => setAddQustion(false)} className='btn btn-sm md:btn-md absolute right-3 top-3'>
@@ -78,7 +79,7 @@ const Qustions = () => {
           </button>
           <div className='mt-5'>
             <h1 className='text-xl'>Add a qustion</h1>
-            <input type="text" placeholder="Your qustion here " className="input input-bordered mt-3 w-full focus:outline-none" />
+            <input type="text" placeholder="Your qustion here " className="input input-bordered mt-3 w-full focus:outline-none dark:bg-slate-900 " />
             <Select
               defaultValue={[colourOptions[2], colourOptions[3]]}
               isMulti
