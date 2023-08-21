@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import InputBoxLOgReg from '../components/shared/InputBoxLOgReg'
 import { BiRename } from 'react-icons/bi'
 import { MdOutlineMail, MdPassword } from 'react-icons/md'
 import LogRegButton from '../components/shared/LogRegButton'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import Axios from '../lib/axiosConfig'
 
 const Register = () => {
   const [fName, setFName] = useState('')
@@ -12,6 +13,7 @@ const Register = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const navigate = useNavigate()
 
   const _hendelGoogleLogin = () => {
     window.open('http://localhost:5000/auth/google', '_self')
@@ -25,16 +27,18 @@ const Register = () => {
 
       } else {
         setError('')
-        const { data } = await axios({
+        const { data } = await Axios({
           method: 'post',
-          url: 'http://localhost:5000/auth/register',
+          url: '/auth/register',
           data: {
             username: fName + " " + lName,
             email,
             password
           }
         })
-        localStorage.setItem('user', JSON.stringify(data))
+        if (data.success) {
+          navigate('/login', { replace: true })
+        }
       }
     } catch (error: any) {
       console.log(error.response.data.message);

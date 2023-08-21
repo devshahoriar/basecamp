@@ -3,7 +3,7 @@ import InputBoxLOgReg from '../components/shared/InputBoxLOgReg'
 import { MdOutlineMail, MdPassword } from 'react-icons/md'
 import LogRegButton from '../components/shared/LogRegButton'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
+import Axios from '../lib/axiosConfig'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -17,21 +17,23 @@ const Login = () => {
 
       } else {
         setError('')
-        const { data } = await axios({
+        const { data } = await Axios({
           method: 'Post',
-          url: 'http://localhost:5000/auth/login',
+          url: '/auth/login',
           withCredentials: true,
           data: {
             email,
             password
           }
         })
-        const d = await axios({
-          method: 'get',
-          url: 'http://localhost:5000/auth/me',
-          withCredentials: true,
-        })
-        console.log("this is d",d);
+        console.log("this is data",data);
+        
+        // const d = await axios({
+        //   method: 'get',
+        //   url: 'http://localhost:5000/auth/me',
+        //   withCredentials: true,
+        // })
+        // console.log("this is d",d);
         
       }
     } catch (error) {
@@ -39,6 +41,8 @@ const Login = () => {
 
     }
   }
+
+
 
   useEffect(() => {
     setError('')
