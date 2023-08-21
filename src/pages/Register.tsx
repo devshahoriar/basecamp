@@ -3,11 +3,52 @@ import InputBoxLOgReg from '../components/shared/InputBoxLOgReg'
 import { BiRename } from 'react-icons/bi'
 import { MdOutlineMail, MdPassword } from 'react-icons/md'
 import LogRegButton from '../components/shared/LogRegButton'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const Register = () => {
+  const [fName, setFName] = useState('')
+  const [lName, setLName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+
   const _hendelGoogleLogin = () => {
     window.open('http://localhost:5000/auth/google', '_self')
   }
+
+  const _hendelRegister = async () => {
+    try {
+
+      if (fName === "" || lName === "" || email === "" || password === "") {
+        setError('Please fill all the field')
+
+      } else {
+        setError('')
+        const { data } = await axios({
+          method: 'post',
+          url: 'http://localhost:5000/auth/register',
+          data: {
+            username: fName + " " + lName,
+            email,
+            password
+          }
+        })
+        localStorage.setItem('user', JSON.stringify(data))
+      }
+    } catch (error: any) {
+      console.log(error.response.data.message);
+      setError(error.response.data.message)
+    }
+
+  }
+
+  useEffect(() => {
+    setError('')
+  }, [fName, lName, email, password])
+
+
+
   return (
     <main>
       <section className="flex items-center justify-center h-screen">
@@ -34,6 +75,8 @@ const Register = () => {
                   title="First Name"
                   type="text"
                   className="!w-full md:!w-fit"
+                  onChange={(e: string) => setFName(e)
+                  }
                 />
                 <InputBoxLOgReg
                   icon={<BiRename />}
@@ -41,6 +84,7 @@ const Register = () => {
                   title="Second Name"
                   type="text"
                   className="!w-full md:!w-fit"
+                  onChange={(e: string) => setLName(e)}
                 />
               </div>
               <InputBoxLOgReg
@@ -49,6 +93,7 @@ const Register = () => {
                 title="Your Email"
                 type="email"
                 className="w-full md:w-[60%] mt-5"
+                onChange={(e: string) => setEmail(e)}
               />
               <InputBoxLOgReg
                 icon={<MdPassword />}
@@ -56,13 +101,15 @@ const Register = () => {
                 title="Password"
                 type="password"
                 className="w-full md:w-[60%] mt-5"
+                onChange={(e: string) => setPassword(e)}
               />
+              <p className='text-red-800 mt-2 text-base h-5'>{error}</p>
               <div className="flex gap-5">
-                <LogRegButton title="Register" className="mt-5" />
+                <LogRegButton onClick={_hendelRegister} title="Register" className="mt-2" />
                 <LogRegButton
                   onClick={_hendelGoogleLogin}
                   title="Google"
-                  className="mt-5"
+                  className="mt-2"
                 />
                 {/* <LogRegButton title="Register" className="mt-5" /> */}
               </div>

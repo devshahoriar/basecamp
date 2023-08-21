@@ -1,10 +1,49 @@
 import { Link } from 'react-router-dom'
 import InputBoxLOgReg from '../components/shared/InputBoxLOgReg'
-import { BiRename } from 'react-icons/bi'
 import { MdOutlineMail, MdPassword } from 'react-icons/md'
 import LogRegButton from '../components/shared/LogRegButton'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const Login = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+
+  const _hendelLogin =async () => {
+    try {
+      if (email === "" || password === "") {
+        setError('Please fill all the field')
+
+      } else {
+        setError('')
+        const { data } = await axios({
+          method: 'Post',
+          url: 'http://localhost:5000/auth/login',
+          withCredentials: true,
+          data: {
+            email,
+            password
+          }
+        })
+        const d = await axios({
+          method: 'get',
+          url: 'http://localhost:5000/auth/me',
+          withCredentials: true,
+        })
+        console.log("this is d",d);
+        
+      }
+    } catch (error) {
+      console.log(error);
+
+    }
+  }
+
+  useEffect(() => {
+    setError('')
+  }, [email, password])
+
   return (
     <main>
       <section className="flex items-center justify-center h-screen">
@@ -30,6 +69,7 @@ const Login = () => {
                 title="Your Email"
                 type="email"
                 className="w-full md:w-[60%] mt-5"
+                onChange={(e: string) => setEmail(e)}
               />
               <InputBoxLOgReg
                 icon={<MdPassword />}
@@ -37,8 +77,10 @@ const Login = () => {
                 title="Password"
                 type="password"
                 className="w-full md:w-[60%] mt-5"
+                onChange={(e: string) => setPassword(e)}
               />
-              <LogRegButton title="Register" className="mt-5" />
+              <p className='text-red-800 mt-2 text-base h-5'>{error}</p>
+              <LogRegButton onClick={_hendelLogin} title="Login" className="mt-2" />
             </div>
           </div>
         </div>
