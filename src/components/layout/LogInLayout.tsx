@@ -2,6 +2,8 @@ import Nav from '../shared/Nav'
 import { Outlet } from 'react-router-dom'
 
 const LogInLayout = () => {
+  
+
   return (
     <>
       <div className='fixed top-0 left-0 ring-0 w-full backdrop-blur-md !z-50'>
