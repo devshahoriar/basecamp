@@ -1,3 +1,3 @@
-const apiUrl = process.env.NODE_ENV === "production"? 'http://localhost:5000' :"https://basecamp-backend.vercel.app/"
+const apiUrl = "https://basecamp-backend.vercel.app/" //'http://localhost:5000'
 
 export { apiUrl };
