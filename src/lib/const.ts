@@ -1,3 +1,3 @@
-const apiUrl = "https://basecamp-backend.vercel.app/" //'http://localhost:5000'
+const apiUrl =  'http://localhost:5000' //"https://basecamp-backend.vercel.app/"
 
 export { apiUrl };
