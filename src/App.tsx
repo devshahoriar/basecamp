@@ -14,11 +14,37 @@ import LogInLayout from './components/layout/LogInLayout'
 import Profile from './pages/Profile'
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
+import { useEffect } from 'react'
+import Axios from './lib/axiosConfig'
+import LogOutLayOut from './components/layout/LogOutLayOut'
 
 
 const queryClient = new QueryClient()
 
 function App() {
+
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const { data } = await Axios({
+          method: 'get',
+          url: '/auth/me',
+          withCredentials: true
+        })
+
+        queryClient.setQueryData('user', data.user)
+      } catch (error: any) {
+        console.log(error.response.data.message);
+      } finally {
+        document.body.style.opacity = "1"
+      }
+
+    }
+    fetchUser()
+  }, [])
+
+
   return (
     <QueryClientProvider client={queryClient}>
 
@@ -35,8 +61,10 @@ function App() {
             <Route path="/project/:id/schedule" element={<Schedule />} />
             <Route path="/project/:id/qus" element={<Qustions />} />
           </Route>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path='/' element={<LogOutLayOut />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Route>
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
       </BrowserRouter> <ReactQueryDevtools initialIsOpen={false} /> </QueryClientProvider>

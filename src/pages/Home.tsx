@@ -1,10 +1,23 @@
 import { useState } from 'react'
 import ProjectBox from '../components/home/ProjectBox'
 import Button from '../components/shared/Button'
-import ModelBase from '../components/shared/ModelBase'
 import AddProject from '../components/shared/forHomePage/AddProject'
+import ProjectLoder from '../components/shared/loder/ProjectLoder'
+import { useQuery } from 'react-query'
+import Axios from '../lib/axiosConfig'
 
 const Home = () => {
+
+  const { data, isLoading, isError } = useQuery('/projects', async () => {
+    const { data } = await Axios({
+      method: 'get',
+      url: '/project/projects',
+      withCredentials: true
+    })
+
+    return data
+  })
+
   const [showMakeProject, setMakeProject] = useState(false)
   return (
     <main className="container">
@@ -22,16 +35,26 @@ const Home = () => {
       </section>
       <p className="text-center  mt-3">Pined and resent projects.</p>
       <section className="mt-5 grid gap-5 md:grid-cols-2 md:gap-10 lg:grid-cols-3">
-        <ProjectBox />
-        <ProjectBox />
-        <ProjectBox />
+        {isLoading && <>
+          <ProjectLoder />
+          <ProjectLoder />
+          <ProjectLoder />
+
+        </>}
+        {
+          isError && <div className='text-center text-red-500'>Something went wrong</div>
+        }
+        {
+          data?.data && data?.data.map((project: any) => <ProjectBox key={project._id} project={project}  />)
+        }
+      
       </section>
-      <div className="divider w-full my-10">Resently added project</div>
+      {/* <div className="divider w-full my-10">Resently added project</div>
       <section className="mt-5 grid gap-5 md:grid-cols-2 md:gap-10 lg:grid-cols-3">
         <ProjectBox />
         <ProjectBox />
         <ProjectBox />
-      </section>
+      </section> */}
       <div className="h-20"></div>
     </main>
   )

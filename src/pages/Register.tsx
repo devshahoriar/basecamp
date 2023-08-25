@@ -36,7 +36,7 @@ const Register = () => {
             password
           }
         })
-        if (data.success) {
+        if (data) {
           navigate('/login', { replace: true })
         }
       }
@@ -55,7 +55,7 @@ const Register = () => {
 
   return (
     <main>
-      <section className="flex items-center justify-center h-screen">
+      <section className="flex items-center justify-center h-screen text-white dark:text-zinc-400">
         <div className="md:h-[500px] w-[95%] sm:w-[80%] h-[600px] md:w-[700px]  rounded-xl logInBg overflow-hidden">
           {/* <div className="mx-5 mt-3">
         <Link to="/" className="font-bold">

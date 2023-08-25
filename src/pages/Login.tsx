@@ -1,16 +1,19 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import InputBoxLOgReg from '../components/shared/InputBoxLOgReg'
 import { MdOutlineMail, MdPassword } from 'react-icons/md'
 import LogRegButton from '../components/shared/LogRegButton'
 import { useEffect, useState } from 'react'
 import Axios from '../lib/axiosConfig'
+import { useQueryClient } from 'react-query'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const navigate = useNavigate()
+  const queryClient = useQueryClient()
 
-  const _hendelLogin =async () => {
+  const _hendelLogin = async () => {
     try {
       if (email === "" || password === "") {
         setError('Please fill all the field')
@@ -26,20 +29,24 @@ const Login = () => {
             password
           }
         })
-        console.log("this is data",data);
-        
+        console.log("this is data", data);
+        queryClient.setQueryData('user', data.user)
+        navigate('/', { replace: true })
         // const d = await axios({
         //   method: 'get',
         //   url: 'http://localhost:5000/auth/me',
         //   withCredentials: true,
         // })
         // console.log("this is d",d);
-        
+
       }
     } catch (error) {
       console.log(error);
 
     }
+  }
+  const _hendelGoogleLogin = () => {
+    window.open('http://localhost:5000/auth/google', '_self')
   }
 
 
@@ -50,7 +57,7 @@ const Login = () => {
 
   return (
     <main>
-      <section className="flex items-center justify-center h-screen">
+      <section className="flex items-center justify-center h-screen text-white dark:text-zinc-400">
         <div className="md:h-[500px] w-[95%] sm:w-[80%] h-[600px] md:w-[700px]  rounded-xl logInBg overflow-hidden">
           {/* <div className="mx-5 mt-3">
             <Link to="/" className="font-bold">
@@ -85,6 +92,11 @@ const Login = () => {
               />
               <p className='text-red-800 mt-2 text-base h-5'>{error}</p>
               <LogRegButton onClick={_hendelLogin} title="Login" className="mt-2" />
+              <LogRegButton
+                onClick={_hendelGoogleLogin}
+                title="Google"
+                className="mt-2 ml-2"
+              />
             </div>
           </div>
         </div>
