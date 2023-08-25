@@ -4,7 +4,10 @@ import { apiUrl } from './const';
 
 
 const Axios = axios.create({
-  baseURL: apiUrl
+  baseURL: apiUrl,
+  headers: {
+    'Content-Type': 'application/json',
+  }
 });
 
 export default Axios;
