@@ -6,6 +6,7 @@ import LogRegButton from '../components/shared/LogRegButton'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Axios from '../lib/axiosConfig'
+import { apiUrl } from '../lib/const'
 
 const Register = () => {
   const [fName, setFName] = useState('')
@@ -16,7 +17,7 @@ const Register = () => {
   const navigate = useNavigate()
 
   const _hendelGoogleLogin = () => {
-    window.open('http://localhost:5000/auth/google', '_self')
+    window.open(apiUrl + '/auth/google', '_self')
   }
 
   const _hendelRegister = async () => {

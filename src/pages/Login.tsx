@@ -5,6 +5,7 @@ import LogRegButton from '../components/shared/LogRegButton'
 import { useEffect, useState } from 'react'
 import Axios from '../lib/axiosConfig'
 import { useQueryClient } from 'react-query'
+import { apiUrl } from '../lib/const'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -46,7 +47,7 @@ const Login = () => {
     }
   }
   const _hendelGoogleLogin = () => {
-    window.open('http://localhost:5000/auth/google', '_self')
+    window.open(apiUrl+'/auth/google', '_self')
   }
 
 
