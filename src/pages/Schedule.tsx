@@ -87,18 +87,18 @@ const AddScheduleModel = ({ setShowModel }: any) => {
   </ModelBase>)
 }
 
-const DeleteModel = ({ setDeletePromt,setDeleteId, deleteId }: any) => {
+const DeleteModel = ({ setDeletePromt, setDeleteId, deleteId }: any) => {
   const queryClient = useQueryClient()
-const _hendelDelete = async () => {
+  const _hendelDelete = async () => {
     const { data } = await Axios({
       url: '/schedule/' + deleteId,
       method: 'delete',
     })
     queryClient.invalidateQueries('schedule')
     setDeletePromt(false)
-}
-  
-  return(<ModelBase set={setDeletePromt}>
+  }
+
+  return (<ModelBase set={setDeletePromt}>
     <div className='bg-slate-300 dark:bg-slate-800 w-full md:w-[600px] relative rounded-lg shadow-xl mx-3 py-2'>
       <button onClick={() => {
         setDeleteId('')
@@ -124,7 +124,7 @@ const Schedule = () => {
     const { data } = await Axios({
       url: '/schedule/' + id,
     })
-    const r = data.data.map((d: any) => {
+    const r = data?.data?.map((d: any) => {
       d.start = d.startDate
       d.end = d.endDate
 
@@ -169,11 +169,11 @@ const Schedule = () => {
                 headerToolbar={{
                   right: 'prev,next addEvent',
                 }}
-                events={[...data]} contentHeight={450} plugins={[dayGridPlugin]} />
+                events={data?.length > 0 ? [...data] : null} contentHeight={450} plugins={[dayGridPlugin]} />
             </div>
             {showModel && <AddScheduleModel setShowModel={setShowModel} />}
 
-            {deletePromt && <DeleteModel setDeletePromt={setDeletePromt} setDeleteId={setDeleteId}  deleteId={deleteId} /> }
+            {deletePromt && <DeleteModel setDeletePromt={setDeletePromt} setDeleteId={setDeleteId} deleteId={deleteId} />}
 
 
           </div>
