@@ -1,4 +1,4 @@
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd'
 import { useMemo, useState } from 'react'
 import WithChildBoard from '../components/shared/WithChildBoard'
 import { BsFillPencilFill } from 'react-icons/bs'
@@ -8,11 +8,36 @@ import ModelBase from '../components/shared/ModelBase'
 import { AiOutlineClose } from 'react-icons/ai'
 import { useQuery, useQueryClient } from 'react-query'
 import Axios from '../lib/axiosConfig'
-import {  useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 
 
 const Todo = ({ todo, index }: { todo: any, index: number }) => {
+  const queryClient = useQueryClient()
+  const { id } = useParams() || {}
+
+  const _hendelDelete = async (i) => {
+    const oldTodos = queryClient.getQueryData('todos') as Array<any>
+
+    if (i >= 0 && i < oldTodos.length) {
+      const newArray = oldTodos.slice(0, i).concat(oldTodos.slice(i + 1));
+
+      try {
+        queryClient.setQueryData('todos', newArray)
+        const { data } = await Axios({
+          url: '/todo/' + id,
+          method: 'post',
+          data: {
+            projectId: id,
+            todos: JSON.stringify(newArray)
+          },
+        })
+      } catch (error) {
+        queryClient.invalidateQueries('todos')
+      }
+    }
+
+  }
   return (
     <Draggable draggableId={"sdf" + index} index={index} key={index} >
       {(provided) => <div {...provided.draggableProps} ref={provided.innerRef} className='border  my-2 p-2 rounded-md flex items-center justify-between relative'>
@@ -26,8 +51,8 @@ const Todo = ({ todo, index }: { todo: any, index: number }) => {
           <button className='h-4 w-4 bg-green-700 rounded-full' />
           <button className='h-4 w-4 bg-red-700 rounded-full' /> */}
 
-          <button><BsFillPencilFill /></button>
-          <button><ImBin /></button>
+          <button onClick={() => console.log("edit click")} ><BsFillPencilFill /></button>
+          <button onClick={() => _hendelDelete(index)}><ImBin /></button>
         </div>
       </div>}
     </Draggable>
@@ -43,11 +68,10 @@ const Model = ({ set }: any) => {
 
   const _hendelAddTodo = async () => {
     const oldData = queryClient.getQueryData('todos') as any
-    console.log("old", oldData);
 
     let newUpdate = [{ todo, color }]
-    if (oldData?.data?.todos) {
-      newUpdate = [...JSON.parse(oldData.data.todos), { todo, color }]
+    if (oldData) {
+      newUpdate = [...oldData, { todo, color }]
     }
     const { data } = await Axios({
       url: '/todo/' + id,
@@ -85,6 +109,8 @@ const Model = ({ set }: any) => {
 
 const Todos = () => {
   const [modelShowAddTodo, setModelShowAddTodo] = useState(false)
+  const queryClient = useQueryClient()
+
 
   const { id } = useParams() || {}
   const { data } = useQuery('todos', async () => {
@@ -95,11 +121,34 @@ const Todos = () => {
       },
       withCredentials: true
     })
-    return data
-  })
+    return JSON.parse(data?.data?.todos)
+  }, { initialData: [] })
 
-  const todos: any = useMemo(() => data?.data?.todos ? JSON.parse(data.data.todos) : [], [data])
- 
+  const _hendelUpdate = async (result: DropResult) => {
+    const fromIndex = result.source?.index, toIndex = result.destination?.index
+    if (fromIndex >= 0 && toIndex >= 0) {
+      const cd = [...data]
+      const [rem] = cd.splice(fromIndex, 1);
+      cd.splice(toIndex, 0, rem);
+      queryClient.setQueryData('todos', cd)
+      try {
+        const { data } = await Axios({
+          url: '/todo/' + id,
+          method: 'post',
+          data: {
+            projectId: id,
+            todos: JSON.stringify(cd)
+          },
+        })
+      } catch (error) {
+        queryClient.invalidateQueries('todos')
+      }
+    }
+
+
+  }
+
+
 
   return (
     <main>
@@ -111,14 +160,14 @@ const Todos = () => {
           </div>
           <div className='md:mx-20 mt-10'>
             <DragDropContext onDragEnd={(result) => {
-              console.log(result)
+              _hendelUpdate(result)
             }}>
               <Droppable droppableId='ss'>
                 {
                   (provided) => (
                     <div ref={provided.innerRef} {...provided.droppableProps}>
 
-                      {todos?.map((todo, index) => <Todo key={index} todo={todo} index={index} />)}
+                      {data?.map((todo, index) => <Todo key={index} todo={todo} index={index} />)}
                       {provided.placeholder}
                     </div>
                   )

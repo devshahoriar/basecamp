@@ -134,7 +134,7 @@ const Schedule = () => {
       delete d.endDate
       return d
     })
-    console.log(r);
+ 
     return r
   })
 
@@ -142,7 +142,7 @@ const Schedule = () => {
 
 
   function onChange(value: any) {
-    console.log(value && value.format(format));
+    // console.log(value && value.format(format));
   }
 
 

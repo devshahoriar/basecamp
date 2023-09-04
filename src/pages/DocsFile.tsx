@@ -11,8 +11,22 @@ import { useQuery, useQueryClient } from 'react-query';
 
 
 const FileItem = ({ file }: { file: any }) => {
-
+  const queryClient = useQueryClient()
   const { description, title, url } = file || {}
+  const _hendelDelete = async () => {
+    try {
+      const { data } = await Axios({
+        method: "delete",
+        url: '/project/removefile?id=' + file._id,
+        withCredentials: true
+      })
+     queryClient.invalidateQueries('/project/files')
+
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
 
   return (
     <div className='flex items-center my-5'>
@@ -22,7 +36,7 @@ const FileItem = ({ file }: { file: any }) => {
       </div>
       <div className='flex gap-2'>
         <a href={url} className='btn' download>Downlode</a>
-        <a className='btn'>Delete</a>
+        <button className='btn' onClick={_hendelDelete}>Delete</button>
       </div>
     </div>
   )
@@ -130,7 +144,7 @@ const DropModel = ({ set }: any) => {
 const DocsFile = () => {
   const [showAddFile, setShowAddFile] = useState(false)
   const { id } = useParams() || {}
-  const { data, isLoading, isError } = useQuery(['/project/files', id], async () => {
+  const { data, isLoading, isError } = useQuery('/project/files', async () => {
     const { data } = await Axios({
       method: 'get',
       url: '/project/files/' + id,

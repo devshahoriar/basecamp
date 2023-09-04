@@ -6,7 +6,6 @@ import AvaterGroupt from '../shared/AvaterGroupt'
 // interface ProjectBox {}
 
 const ProjectBox = ({ project }: { project: any }) => {
-  console.log(project);
   
   const _hendelPin = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()

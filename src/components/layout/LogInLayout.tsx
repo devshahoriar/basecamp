@@ -9,7 +9,6 @@ const LogInLayout = () => {
  
   
   useEffect(() => {
-    console.log(data);
     if (!data && !isLoading) {
       navigate('/login', { replace: true })
 
