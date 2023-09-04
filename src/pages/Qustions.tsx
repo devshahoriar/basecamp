@@ -61,7 +61,7 @@ const ItemQustion = ({ set, data, setActiveAnsId }: any) => {
 
 const ItemAnsware = ({ id, d }, any) => {
 
-  
+
   return (
     <div className='p-3 rounded-xl dark:bg-slate-700'>
       <div className='flex items-center text-sm justify-between'>
@@ -88,7 +88,7 @@ const AnsBox = ({ setShowFullQustion, makeSolution, setMakeSolution, id }) => {
   const [error, setErrr] = useState('')
   const queryClient = useQueryClient()
 
-  const { data, isError, isLoading } = useQuery('ans', async () => {
+  const { data, isError, isLoading, isFetching } = useQuery('ans', async () => {
     const { data } = await Axios({
       method: "get",
       url: "/qustion/ans/" + id,
@@ -113,7 +113,8 @@ const AnsBox = ({ setShowFullQustion, makeSolution, setMakeSolution, id }) => {
       }
     })
     if (data.success) {
-      queryClient.invalidateQueries('ans')
+      await queryClient.invalidateQueries('ans')
+      await queryClient.invalidateQueries('qustions')
       setErrr('')
       setQusTitle('')
       setInCode('')
@@ -144,7 +145,7 @@ const AnsBox = ({ setShowFullQustion, makeSolution, setMakeSolution, id }) => {
                 {isError && <p>Something error.</p>}
                 {data?.length === 0 && <h1 className='dark:bg-slate-700 rounded-md p-2 my-3'>No solution</h1>}
                 {/* */}
-                {data?.map((e, i) => <ItemAnsware d={e} id={e._id} key={i} />)}
+                {!isFetching && data?.map((e, i) => <ItemAnsware d={e} id={e._id} key={i} />)}
               </div>
 
               <button onClick={() => setMakeSolution(false)} className='btn mt-3'>Make a solution</button>
@@ -176,7 +177,7 @@ const Qustions = () => {
   const [showFullQustion, setShowFullQustion] = useState(false)
   const [makeSolution, setMakeSolution] = useState(true)
   const [qustionTitle, setQustionTitle] = useState('')
-  const [tags, setTags] = useState([''])
+  const [tags, setTags] = useState(['JavaScript'])
   const [errro, setError] = useState('')
   const { id } = useParams() || {}
   const queryClient = useQueryClient()
@@ -262,7 +263,7 @@ const Qustions = () => {
             <h1 className='text-xl'>Add a qustion</h1>
             <input onChange={e => setQustionTitle(e.target.value)} type="text" placeholder="Your qustion here " className="input input-bordered mt-3 w-full focus:outline-none dark:bg-slate-900 " />
             <Select
-              defaultValue={[colourOptions[2]]}
+              defaultValue={[colourOptions[3]]}
               isMulti
               name="colors"
               options={colourOptions}

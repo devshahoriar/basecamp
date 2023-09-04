@@ -1,5 +1,5 @@
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd'
-import { useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import WithChildBoard from '../components/shared/WithChildBoard'
 import { BsFillPencilFill } from 'react-icons/bs'
 import { ImBin } from 'react-icons/im'
@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom'
 
 
 
-const Todo = ({ todo, index }: { todo: any, index: number }) => {
+const Todo = ({ todo, index, setModelShowAddTodo, setSelectedEditId, setOpenForEdit }: any) => {
   const queryClient = useQueryClient()
   const { id } = useParams() || {}
 
@@ -51,7 +51,11 @@ const Todo = ({ todo, index }: { todo: any, index: number }) => {
           <button className='h-4 w-4 bg-green-700 rounded-full' />
           <button className='h-4 w-4 bg-red-700 rounded-full' /> */}
 
-          <button onClick={() => console.log("edit click")} ><BsFillPencilFill /></button>
+          <button onClick={() => {
+            setModelShowAddTodo(true)
+            setSelectedEditId(index)
+            setOpenForEdit(true)
+          }} ><BsFillPencilFill /></button>
           <button onClick={() => _hendelDelete(index)}><ImBin /></button>
         </div>
       </div>}
@@ -59,11 +63,22 @@ const Todo = ({ todo, index }: { todo: any, index: number }) => {
   )
 }
 
-const Model = ({ set }: any) => {
+const Model = ({ set, selectedEditId, setOpenForEdit, openForEdit }: any) => {
   const { id } = useParams() || {}
   const [todo, setTodo] = useState('')
   const [color, setColor] = useState('blue')
   const queryClient = useQueryClient()
+
+  useEffect(() => {
+    if (openForEdit) {
+      const oldData = queryClient.getQueryData('todos') as any
+      setTodo(oldData[selectedEditId].todo);
+
+    }
+    return () => {
+      setOpenForEdit(false)
+    }
+  }, [])
 
 
   const _hendelAddTodo = async () => {
@@ -72,6 +87,10 @@ const Model = ({ set }: any) => {
     let newUpdate = [{ todo, color }]
     if (oldData) {
       newUpdate = [...oldData, { todo, color }]
+    }
+    if (openForEdit) {
+      oldData[selectedEditId].todo = todo
+      newUpdate = oldData
     }
     const { data } = await Axios({
       url: '/todo/' + id,
@@ -94,13 +113,13 @@ const Model = ({ set }: any) => {
         <div className='pt-10 px-2'>
           <p className='text-xl'>Add todo</p><div>
 
-            <input onChange={(e) => setTodo(e.target.value)} type="text" placeholder="Type here" className="input input-bordered w-full mt-3" />
+            <input value={todo} onChange={(e) => setTodo(e.target.value)} type="text" placeholder="Type here" className="input input-bordered w-full mt-3" />
             <div className='mt-4 flex gap-4'><button className='h-6 w-6 bg-black dark:bg-white rounded-full' />
               <button className='h-6 w-6 bg-blue-800 rounded-full' />
               <button className='h-6 w-6 bg-green-700 rounded-full' />
               <button className='h-6 w-6 bg-red-700 rounded-full' /></div>
           </div>
-          <button onClick={_hendelAddTodo} className='btn mt-5'>Add todo</button>
+          <button onClick={_hendelAddTodo} className='btn mt-5'>{openForEdit ? "update" : "Add todo"}</button>
         </div>
       </div>
     </div>
@@ -109,6 +128,8 @@ const Model = ({ set }: any) => {
 
 const Todos = () => {
   const [modelShowAddTodo, setModelShowAddTodo] = useState(false)
+  const [selectedEditId, setSelectedEditId] = useState(null)
+  const [openForEdit, setOpenForEdit] = useState(false)
   const queryClient = useQueryClient()
 
 
@@ -167,7 +188,7 @@ const Todos = () => {
                   (provided) => (
                     <div ref={provided.innerRef} {...provided.droppableProps}>
 
-                      {data?.map((todo, index) => <Todo key={index} todo={todo} index={index} />)}
+                      {data?.map((todo, index) => <Todo key={index} todo={todo} index={index} setModelShowAddTodo={setModelShowAddTodo} setSelectedEditId={setSelectedEditId} setOpenForEdit={setOpenForEdit} />)}
                       {provided.placeholder}
                     </div>
                   )
@@ -179,7 +200,7 @@ const Todos = () => {
       </div>
 
 
-      {modelShowAddTodo && <Model set={setModelShowAddTodo} />}
+      {modelShowAddTodo && <Model set={setModelShowAddTodo} selectedEditId={selectedEditId} setOpenForEdit={setOpenForEdit} openForEdit={openForEdit} />}
 
 
     </main>
