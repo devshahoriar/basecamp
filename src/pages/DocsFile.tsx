@@ -20,7 +20,7 @@ const FileItem = ({ file }: { file: any }) => {
         url: '/project/removefile?id=' + file._id,
         withCredentials: true
       })
-     queryClient.invalidateQueries('/project/files')
+      queryClient.invalidateQueries('/project/files')
 
     } catch (error) {
       console.log(error);
@@ -144,7 +144,7 @@ const DropModel = ({ set }: any) => {
 const DocsFile = () => {
   const [showAddFile, setShowAddFile] = useState(false)
   const { id } = useParams() || {}
-  const { data, isLoading, isError } = useQuery('/project/files', async () => {
+  const { data, isLoading, isError, isFetching } = useQuery('/project/files', async () => {
     const { data } = await Axios({
       method: 'get',
       url: '/project/files/' + id,
@@ -168,7 +168,7 @@ const DocsFile = () => {
                 <FileLoder />
                 <FileLoder /></>}
             {isError && <div className='text-center text-red-500'>Something went wrong</div>}
-            {
+            {!isFetching &&
               data?.data && data?.data.map((file: any) => <FileItem key={file._id} file={file} />)
             }
           </div>

@@ -19,7 +19,7 @@ import Axios from './lib/axiosConfig'
 import LogOutLayOut from './components/layout/LogOutLayOut'
 
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({defaultOptions: {queries: {refetchOnWindowFocus:false}}})
 
 function App() {
 

@@ -47,7 +47,7 @@ const ItemQustion = ({ set, data, setActiveAnsId }: any) => {
         <div className='flex gap-1 md:gap-2 text-xs'>
           {data?.tags?.map((d, i) =>
 
-            <span className='bg-slate-400 dark:bg-slate-950 p-1  rounded-md' key={i}>{d}</span>
+            <span className='bg-slate-400  p-1  rounded-md' key={i}>{d}</span>
           )}
         </div>
       </div>
@@ -63,7 +63,7 @@ const ItemAnsware = ({ id, d }, any) => {
 
 
   return (
-    <div className='p-3 rounded-xl dark:bg-slate-700'>
+    <div className='p-3 rounded-xl bg-slate-400'>
       <div className='flex items-center text-sm justify-between'>
         <div className='flex items-center gap-1'>  <p>Answare by {d?.auther?.name}</p>
           <img src="https://picsum.photos/200" className='h-5 w-5 object-cover rounded-md' alt="" /></div>
