@@ -6,6 +6,7 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "noUnusedLocals": true,
+  
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -17,7 +18,7 @@
 
     /* Linting */
     "strict": false,
-    "noUnusedParameters": true,
+    "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true
   },
   
