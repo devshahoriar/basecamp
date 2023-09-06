@@ -57,7 +57,7 @@ const AddProject = ({ set }: { set: any }) => {
             onChange={(e) => setName(e.target.value)}
             type="text"
             placeholder="Project 1"
-            className="input input-bordered w-full text-white"
+            className="input input-bordered w-full"
           />
         </div>
         <div className="form-control w-full">
@@ -67,7 +67,7 @@ const AddProject = ({ set }: { set: any }) => {
           <textarea
             onChange={(e) => setDetails(e.target.value)}
             placeholder="lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum?"
-            className="input input-bordered w-full h-24 text-white"
+            className="input input-bordered w-full h-24"
           />
         </div>
         <div>

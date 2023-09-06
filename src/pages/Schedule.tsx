@@ -55,7 +55,7 @@ const AddScheduleModel = ({ setShowModel }: any) => {
   }
 
   return (<ModelBase set={setShowModel}>
-    <div className='bg-slate-300 dark:bg-slate-800 w-full md:w-[600px] relative rounded-lg shadow-xl mx-0 scale-90 md:scale-100 md:mx-3'>
+    <div className='bg-slate-300   w-full md:w-[600px] relative rounded-lg shadow-xl mx-0 scale-90 md:scale-100 md:mx-3'>
       <button onClick={() => setShowModel(false)} className='btn btn-sm md:btn-md absolute right-3 top-3'>
         <AiOutlineClose />
       </button>
@@ -99,7 +99,7 @@ const DeleteModel = ({ setDeletePromt, setDeleteId, deleteId }: any) => {
   }
 
   return (<ModelBase set={setDeletePromt}>
-    <div className='bg-slate-300 dark:bg-slate-800 w-full md:w-[600px] relative rounded-lg shadow-xl mx-3 py-2'>
+    <div className='bg-slate-300   w-full md:w-[600px] relative rounded-lg shadow-xl mx-3 py-2'>
       <button onClick={() => {
         setDeleteId('')
         setDeletePromt(false)

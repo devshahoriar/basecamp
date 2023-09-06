@@ -3,7 +3,7 @@ import Board from './Board'
 import { CiSquareMore } from 'react-icons/ci'
 import { Link } from 'react-router-dom'
 import ProjectOverFlowBoxNav from './ProjectOverFlowBoxNav'
-import { useClickAnyWhere } from 'usehooks-ts'
+import { useQueryClient } from 'react-query'
 
 interface WithChildBoardProps {
   children?: React.ReactNode
@@ -13,6 +13,8 @@ interface WithChildBoardProps {
 const WithChildBoard = ({ children, isMenu = true }: WithChildBoardProps) => {
   const [boxNavShow, setBoxNavShow] = useState(false)
 
+  const queryClient = useQueryClient()
+  const project: any = queryClient.getQueryData('project')
 
   return (
     <>
@@ -29,9 +31,9 @@ const WithChildBoard = ({ children, isMenu = true }: WithChildBoardProps) => {
         </button>
         <Link
           className="decoration-wavy underline decoration-emerald-500 font-semibold hover:scale-105 transition-transform"
-          to="/project/:id"
+          to={"/project/"+project?._id}
         >
-          Project name
+          {project?.name}
         </Link>
       </div>
       <Board isMenu={isMenu} children={children} />

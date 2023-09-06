@@ -1,4 +1,7 @@
+import { useEffect } from 'react'
 import { BsThreeDotsVertical } from 'react-icons/bs'
+import { useQueryClient } from 'react-query'
+import { useParams } from 'react-router-dom'
 
 interface BoardProps {
   children?: React.ReactNode
@@ -7,6 +10,12 @@ interface BoardProps {
 }
 
 const Board = ({ className, children, isMenu = true }: BoardProps) => {
+  const queryClient = useQueryClient()
+  
+
+  
+
+
   return (
     <section
       className={`mx-auto w-full sm:w-[500px] md:w-[600px] lg:w-[800px] xl:w-[1050px] min-h-[calc(100vh-150px)] boxShaDow rounded-lg p-2 relative ${className}`}

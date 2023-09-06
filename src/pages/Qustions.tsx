@@ -126,7 +126,7 @@ const AnsBox = ({ setShowFullQustion, makeSolution, setMakeSolution, id }) => {
 
 
   return <ModelBase set={setShowFullQustion}>
-    <div className='w-[calc(100vw-20px)] md:w-[600px] bg-slate-300 dark:bg-slate-800 max-h-[500px] shadow-lg rounded-md relative pb-5'>
+    <div className='w-[calc(100vw-20px)] md:w-[600px] bg-slate-300   max-h-[500px] shadow-lg rounded-md relative pb-5'>
 
 
       <button onClick={() => setShowFullQustion(false)} className='btn btn-sm md:btn-md absolute right-3 top-2'>
@@ -255,7 +255,7 @@ const Qustions = () => {
       {showFullQustion && <AnsBox makeSolution={makeSolution} setMakeSolution={setMakeSolution} setShowFullQustion={setShowFullQustion} id={activeAnsId} />}
 
       {addQustion && <ModelBase set={setAddQustion}>
-        <div className='bg-slate-300 dark:bg-slate-800 w-[calc(100vw-20px)] md:w-[600px] relative rounded-lg shadow-xl px-5 scale-90 md:scale-100 md:px-3 py-3'>
+        <div className='bg-slate-300   w-[calc(100vw-20px)] md:w-[600px] relative rounded-lg shadow-xl px-5 scale-90 md:scale-100 md:px-3 py-3'>
           <button onClick={() => setAddQustion(false)} className='btn btn-sm md:btn-md absolute right-3 top-3'>
             <AiOutlineClose />
           </button>

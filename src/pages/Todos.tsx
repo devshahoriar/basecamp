@@ -105,7 +105,7 @@ const Model = ({ set, selectedEditId, setOpenForEdit, openForEdit }: any) => {
   }
 
   return <ModelBase set={set}>
-    <div className='w-[calc(100vw-20px)] md:w-[600px] bg-slate-300 dark:bg-slate-800 max-h-[500px] shadow-lg rounded-md relative pb-5'>
+    <div className='w-[calc(100vw-20px)] md:w-[600px] bg-slate-300   max-h-[500px] shadow-lg rounded-md relative pb-5'>
       <button onClick={() => set(false)} className='btn btn-sm md:btn-md absolute right-3 top-2'>
         <AiOutlineClose />
       </button>

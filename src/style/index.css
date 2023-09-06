@@ -43,7 +43,7 @@
   @apply hidden
 }
 .rdrCalendarWrapper {
-  @apply rounded-md border dark:bg-slate-800 
+  @apply rounded-md border   
 }
 .rdrDayNumber span{
   @apply dark:!text-white opacity-80

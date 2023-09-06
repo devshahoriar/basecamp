@@ -5,7 +5,6 @@ import BoardHeader from '../components/shared/BoardHeader'
 import BoardItems from '../components/shared/BoardItems'
 
 const Project = () => {
-  const { id } = useParams()
 
   return (
     <main>
