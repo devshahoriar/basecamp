@@ -42,13 +42,13 @@ const Nav = () => {
         </Link>
         <div className="flex items-center gap-3 md:gap-4">
           <NavLink to="/" title="Home" icon={<RiHome8Fill />} />
-          <NavLink to="/ping" title="ping" icon={<TbArrowZigZag />} />
+          {/* <NavLink to="/ping" title="ping" icon={<TbArrowZigZag />} />
           <NavLink to="/line" title="Line" icon={<TbMessage2Bolt />} />
           <NavLink
             to="/find"
             title="Find"
             icon={<MdOutlineLocationSearching />}
-          />
+          /> */}
         </div>
         <div className="relative">
           <Avater

@@ -23,7 +23,7 @@
   background-size: cover;
 }
 
-.fc-toolbar-title{
+/* .fc-toolbar-title{
   @apply !text-lg md:!text-2xl;
 }
 .fc-button{
@@ -37,7 +37,7 @@
 }
 .fc-button{
   @apply dark:!bg-slate-900 !bg-slate-400
-}
+} */
 
 .rdrDateDisplayWrapper{
   @apply hidden
@@ -104,4 +104,8 @@
 
 .dropzone{
   @apply h-40 w-full  sm:w-80 mt-5 border-dashed border-2 rounded-md flex justify-center cursor-pointer flex-col
+}
+
+.rdrDayNumber span{
+  @apply !text-black
 }
