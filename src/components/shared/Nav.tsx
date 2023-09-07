@@ -48,7 +48,7 @@ const Nav = () => {
             to="/find"
             title="Find"
             icon={<MdOutlineLocationSearching />}
-          /> */}
+          /> */} 
         </div>
         <div className="relative">
           <Avater
