@@ -38,7 +38,7 @@ const Nav = () => {
       <nav className="container flex justify-between h-14 items-center md:h-16">
         <Link to="/" className="text-2xl md:flex md:items-center md:gap-2">
           <VscLayers />
-          <span className="text-sm hidden md:block font-black ">Basecamp</span>
+          <span className="text-sm hidden md:block font-black ">Proman360</span>
         </Link>
         <div className="flex items-center gap-3 md:gap-4">
           <NavLink to="/" title="Home" icon={<RiHome8Fill />} />
