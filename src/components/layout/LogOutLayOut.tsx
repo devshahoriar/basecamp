@@ -8,7 +8,6 @@ const LogOutLayOut = () => {
   const navigate = useNavigate()
   
   useEffect(() => {
-    console.log(data);
     if (data && !isLoading) {
       navigate('/', { replace: true })
 

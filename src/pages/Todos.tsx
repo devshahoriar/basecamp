@@ -142,7 +142,7 @@ const Todos = () => {
       },
       withCredentials: true
     })
-    return JSON.parse(data?.data?.todos)
+    return data?.data?.todos ? JSON.parse(data?.data?.todos) : null
   }, { initialData: [] })
 
   const _hendelUpdate = async (result: DropResult) => {

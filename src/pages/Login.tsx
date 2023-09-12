@@ -30,7 +30,6 @@ const Login = () => {
             password
           }
         })
-        console.log("this is data", data);
         queryClient.setQueryData('user', data.user)
         navigate('/', { replace: true })
         // const d = await axios({

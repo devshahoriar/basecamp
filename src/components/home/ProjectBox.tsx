@@ -18,7 +18,11 @@ const ProjectBox = ({ project }: { project: any }) => {
   const _hendelClick = () => {
     const projects: any = queryClient.getQueryData('/projects')
     const f = projects.data?.filter(i => i?._id === project?._id)
-    if (f) queryClient.setQueryData('project', f[0])
+    if (f?.length !== 0) {
+      queryClient.setQueryData('project', f[0])
+      queryClient.setQueryData('members', f[0]?.members?.map(item => { return { value: item._id, label: item.email,avatar: item?.avatar}}))
+
+    }
   }
 
 

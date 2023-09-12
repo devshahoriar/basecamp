@@ -81,15 +81,15 @@
   @apply !border-none !shadow-none
 }
 
-.select__control{
+/* .select__control{
   @apply  dark:!bg-slate-900 
-}
+} */
 
-.select__multi-value{
+/* .select__multi-value{
   @apply dark:!bg-slate-800 dark:!text-white
-}
+} */
 
-.select__menu{
+/* .select__menu{
   @apply dark:!bg-slate-900 dark:!text-white 
 }
 .select__option {
@@ -100,7 +100,7 @@
 }
 .select__multi-value__label{
   @apply dark:!text-white
-}
+} */
 
 .dropzone{
   @apply h-40 w-full  sm:w-80 mt-5 border-dashed border-2 rounded-md flex justify-center cursor-pointer flex-col

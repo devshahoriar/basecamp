@@ -9,12 +9,14 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Avater = ({ alt, src, className, title, ...rest }: Props) => {
+  
+  
   return (
     <div
       {...rest}
       className={`rounded-full  h-10 w-10 overflow-hidden flex items-center justify-center border-2 ${className} ${title ? 'bg-gray-500' : ''}`}
     >
-      {src ? (
+      {src !== undefined ? (
         <img
           src={src}
           alt={alt}
