@@ -1,3 +1,3 @@
-const apiUrl = 'http://localhost:5000' //"https://basecamp-h9qe.onrender.com"  //'http://localhost:5000'
+const apiUrl = 'https://basecamp-h9qe.onrender.com' //"https://basecamp-h9qe.onrender.com"  //'http://localhost:5000'
 
 export { apiUrl };
