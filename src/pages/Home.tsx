@@ -35,7 +35,7 @@ const Home = () => {
           <Button onClick={() => setOpenInvite(r => !r)}>Invite People</Button>
         </div>
       </section>
-      <p className="text-center  mt-3">Pined and resent projects.</p>
+     {!isLoading && <p className="text-center  mt-3">{data?.data?.length === 0 ? 'No project found.' : 'Pined and resent projects.'}</p>}
       <section className="mt-5 grid gap-5 md:grid-cols-2 md:gap-10 lg:grid-cols-3">
         {isLoading && <>
           <ProjectLoder />

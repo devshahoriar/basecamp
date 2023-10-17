@@ -40,8 +40,8 @@ const Login = () => {
         // console.log("this is d",d);
 
       }
-    } catch (error) {
-      console.log(error);
+    } catch ({response}) {
+      setError(response.data.message);
 
     }
   }

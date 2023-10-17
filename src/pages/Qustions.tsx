@@ -235,7 +235,7 @@ const Qustions = () => {
             <div className=" flex flex-col gap-5">
               {isLoading && <p>Loading...</p>}
               {isError && <p>Something error.</p>}
-              {qsData?.length === 0 && <p>No qustions</p>}
+              {qsData?.length === 0 && <p className='text-center text-red-600 font-bold'>No qustions</p>}
               {
                 qsData?.map((d, i) => <ItemQustion set={setShowFullQustion} data={d} key={i} setActiveAnsId={setActiveAnsId} />)
               }

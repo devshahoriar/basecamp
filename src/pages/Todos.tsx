@@ -180,6 +180,10 @@ const Todos = () => {
             <button onClick={() => setModelShowAddTodo(true)} className='btn'>Add Todo</button>
           </div>
           <div className='md:mx-20 mt-10'>
+            {
+              data?.length === 0 || !data && <div className='text-center text-red-500 mt-10 font-bold'>No todo found.</div>
+            }
+            
             <DragDropContext onDragEnd={(result) => {
               _hendelUpdate(result)
             }}>

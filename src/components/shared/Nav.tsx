@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { VscLayers } from 'react-icons/vsc'
 import { RiHome8Fill, RiProfileLine } from 'react-icons/ri'
 import { TbArrowZigZag } from 'react-icons/tb'
@@ -7,6 +7,8 @@ import { MdOutlineLocationSearching } from 'react-icons/md'
 import Avater from './Avater'
 import { useEffect, useState } from 'react'
 import { HiOutlineLogout } from 'react-icons/hi'
+import { useQueryClient } from 'react-query'
+import Axios from '../../lib/axiosConfig'
 
 const NavLink = ({
   to,
@@ -28,10 +30,25 @@ const NavLink = ({
 const Nav = () => {
   const [showMenu, SetShowMenu] = useState(false)
   const location = useLocation()
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   useEffect(() => {
     SetShowMenu(false)
   }, [location])
+  const _hendelLogout = async () => {
+    try {
+      await Axios({
+        url: '/auth/logout',
+        withCredentials: true,
+        method: 'get',
+      })
+      queryClient.clear()
+      navigate('/login', { replace: true })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className="border-b backdrop-blur-md bg-white bg-opacity-5">
@@ -48,7 +65,7 @@ const Nav = () => {
             to="/find"
             title="Find"
             icon={<MdOutlineLocationSearching />}
-          /> */} 
+          /> */}
         </div>
         <div className="relative">
           <Avater
@@ -58,7 +75,7 @@ const Nav = () => {
           />
           {showMenu && (
             <div className="absolute  dark:bg-zinc-700 bg-zinc-300  px-4 py-1  mt-1  right-0 rounded-xl shadow-md">
-              <button className="dark:text-white text-black my-1 whitespace-nowrap flex gap-2 items-center">
+              <button onClick={_hendelLogout} className="dark:text-white text-black my-1 whitespace-nowrap flex gap-2 items-center">
                 Log out <HiOutlineLogout />
               </button>
               <Link

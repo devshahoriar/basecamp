@@ -23,13 +23,13 @@
   background-size: cover;
 }
 
-/* .fc-toolbar-title{
+.fc-toolbar-title{
   @apply !text-lg md:!text-2xl;
 }
 .fc-button{
   @apply !text-sm md:!text-base;
 }
-.fc-day-today {
+/* .fc-day-today {
   @apply dark:!bg-slate-900 !bg-slate-400
 }
 .fc-event{

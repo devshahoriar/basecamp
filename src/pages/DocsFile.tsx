@@ -171,6 +171,9 @@ const DocsFile = () => {
             {!isFetching &&
               data?.data && data?.data.map((file: any) => <FileItem key={file._id} file={file} />)
             }
+            {
+              data?.data?.length === 0 && <div className='text-center text-red-500 mt-10 font-bold'>No file found</div>
+            }
           </div>
         </WithChildBoard>
       </div>

@@ -37,7 +37,7 @@ function App() {
       } catch (error: any) {
         console.log(error.response.data.message);
       } finally {
-        document.body.style.opacity = "1"
+        document.getElementById('root').style.opacity = "1"
       }
 
     }
@@ -47,8 +47,6 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-
-
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LogInLayout />}>
