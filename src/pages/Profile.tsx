@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQueryClient } from "react-query"
 import { FcGoogle } from "react-icons/fc"
 

@@ -3,9 +3,10 @@ import InputBoxLOgReg from '../components/shared/InputBoxLOgReg'
 import { MdOutlineMail, MdPassword } from 'react-icons/md'
 import LogRegButton from '../components/shared/LogRegButton'
 import { useEffect, useState } from 'react'
-import Axios from '../lib/axiosConfig'
+
 import { useQueryClient } from 'react-query'
 import { apiUrl } from '../lib/const'
+import Axios from '../lib/axiosConfig'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -40,13 +41,13 @@ const Login = () => {
         // console.log("this is d",d);
 
       }
-    } catch ({response}) {
+    } catch ({ response }) {
       setError(response.data.message);
 
     }
   }
   const _hendelGoogleLogin = () => {
-    window.open(apiUrl+'/auth/google', '_self')
+    window.open(apiUrl + '/auth/google', '_self')
   }
 
 
@@ -56,9 +57,9 @@ const Login = () => {
   }, [email, password])
 
   return (
-    <main>
+    <main className='bg-slate-900'>
       <section className="flex items-center justify-center h-screen text-white dark:text-zinc-400">
-        <div className="md:h-[500px] w-[95%] sm:w-[80%] h-[600px] md:w-[700px]  rounded-xl logInBg overflow-hidden">
+        <div className="md:h-[500px] w-[95%] sm:w-[80%] h-[600px] md:w-[700px]  rounded-xl logInBg overflow-hidden drop-shadow-lg">
           {/* <div className="mx-5 mt-3">
             <Link to="/" className="font-bold">
               Basecamp

@@ -4,7 +4,6 @@ import { BiRename } from 'react-icons/bi'
 import { MdOutlineMail, MdPassword } from 'react-icons/md'
 import LogRegButton from '../components/shared/LogRegButton'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import Axios from '../lib/axiosConfig'
 import { apiUrl } from '../lib/const'
 
@@ -55,9 +54,10 @@ const Register = () => {
 
 
   return (
-    <main>
-      <section className="flex items-center justify-center h-screen text-white dark:text-zinc-400">
-        <div className="md:h-[500px] w-[95%] sm:w-[80%] h-[600px] md:w-[700px]  rounded-xl logInBg overflow-hidden">
+    <main className='bg-slate-900'>
+      <section className="flex items-center justify-center h-screen text-white">
+        <div className="md:h-[500px] w-[95%] sm:w-[80%] h-[600px] md:w-[700px]  rounded-xl logInBg overflow-hidden drop-shadow-lg">
+          
           {/* <div className="mx-5 mt-3">
         <Link to="/" className="font-bold">
           Basecamp
@@ -76,7 +76,7 @@ const Register = () => {
               <div className="flex gap-5 mt-5 flex-col md:flex-row">
                 <InputBoxLOgReg
                   icon={<BiRename />}
-                  placeholder="Shuvo"
+                  placeholder="First Name"
                   title="First Name"
                   type="text"
                   className="!w-full md:!w-fit"
@@ -85,8 +85,8 @@ const Register = () => {
                 />
                 <InputBoxLOgReg
                   icon={<BiRename />}
-                  placeholder="Vai"
-                  title="Second Name"
+                  placeholder="Last name"
+                  title="Last Name"
                   type="text"
                   className="!w-full md:!w-fit"
                   onChange={(e: string) => setLName(e)}
@@ -102,7 +102,7 @@ const Register = () => {
               />
               <InputBoxLOgReg
                 icon={<MdPassword />}
-                placeholder="****"
+                placeholder="Password"
                 title="Password"
                 type="password"
                 className="w-full md:w-[60%] mt-5"

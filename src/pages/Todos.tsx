@@ -43,7 +43,7 @@ const Todo = ({ todo, index, setModelShowAddTodo, setSelectedEditId, setOpenForE
       {(provided) => <div {...provided.draggableProps} ref={provided.innerRef} className='border  my-2 p-2 rounded-md flex items-center justify-between relative'>
         <div className='flex items-center gap-2'>
           <button {...provided.dragHandleProps} ><LiaBarsSolid /></button>
-          <h1>{todo?.todo}</h1>
+          <h1 style={{ color: todo?.color }}>{todo?.todo}</h1>
         </div>
         <div className='flex gap-3 items-center ml-3'>
           {/* <button className='h-4 w-4 bg-black rounded-full' />
@@ -67,13 +67,15 @@ const Model = ({ set, selectedEditId, setOpenForEdit, openForEdit }: any) => {
   const { id } = useParams() || {}
   const [todo, setTodo] = useState('')
   const [color, setColor] = useState('blue')
+  const [error, setError] = useState('')
+  const [lading, setLading] = useState(false)
   const queryClient = useQueryClient()
 
   useEffect(() => {
     if (openForEdit) {
       const oldData = queryClient.getQueryData('todos') as any
       setTodo(oldData[selectedEditId].todo);
-
+      setColor(oldData[selectedEditId].color);
     }
     return () => {
       setOpenForEdit(false)
@@ -82,6 +84,12 @@ const Model = ({ set, selectedEditId, setOpenForEdit, openForEdit }: any) => {
 
 
   const _hendelAddTodo = async () => {
+    setLading(true)
+    if (todo === "") {
+      setError('Todo is required')
+      setLading(false)
+      return
+    }
     const oldData = queryClient.getQueryData('todos') as any
 
     let newUpdate = [{ todo, color }]
@@ -90,6 +98,7 @@ const Model = ({ set, selectedEditId, setOpenForEdit, openForEdit }: any) => {
     }
     if (openForEdit) {
       oldData[selectedEditId].todo = todo
+      oldData[selectedEditId].color = color
       newUpdate = oldData
     }
     const { data } = await Axios({
@@ -101,6 +110,7 @@ const Model = ({ set, selectedEditId, setOpenForEdit, openForEdit }: any) => {
       },
     })
     queryClient.invalidateQueries('todos')
+    setLading(false)
     set(false)
   }
 
@@ -114,12 +124,16 @@ const Model = ({ set, selectedEditId, setOpenForEdit, openForEdit }: any) => {
           <p className='text-xl'>Add todo</p><div>
 
             <input value={todo} onChange={(e) => setTodo(e.target.value)} type="text" placeholder="Type here" className="input input-bordered w-full mt-3" />
-            <div className='mt-4 flex gap-4'><button className='h-6 w-6 bg-black dark:bg-white rounded-full' />
-              <button className='h-6 w-6 bg-blue-800 rounded-full' />
-              <button className='h-6 w-6 bg-green-700 rounded-full' />
-              <button className='h-6 w-6 bg-red-700 rounded-full' /></div>
+            <div className='mt-4 flex gap-4'>
+              <button className={`h-6 w-6 bg-black rounded-full ${color === "black" ? "ring" : ""}`} onClick={() => setColor('black')} />
+              <button className={`h-6 w-6 bg-blue-800 rounded-full ${color === "blue" ? "ring" : ""}`} onClick={() => setColor('blue')} />
+
+              <button className={`h-6 w-6 bg-red-700 rounded-full ${color === "red" ? "ring" : ""}`} onClick={() => setColor('red')} />
+              <button className={`h-6 w-6 bg-orange-600 rounded-full ${color === "orange" ? "ring" : ""}`} onClick={() => setColor('orange')} />
+            </div>
           </div>
-          <button onClick={_hendelAddTodo} className='btn mt-5'>{openForEdit ? "update" : "Add todo"}</button>
+          <p className='mt-2 h-4 text-red-500'>{error}</p>
+          <button disabled={lading} onClick={_hendelAddTodo} className='btn mt-2'>{openForEdit ? "update" : "Add todo"}</button>
         </div>
       </div>
     </div>
@@ -183,7 +197,7 @@ const Todos = () => {
             {
               data?.length === 0 || !data && <div className='text-center text-red-500 mt-10 font-bold'>No todo found.</div>
             }
-            
+
             <DragDropContext onDragEnd={(result) => {
               _hendelUpdate(result)
             }}>

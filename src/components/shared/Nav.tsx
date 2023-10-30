@@ -75,15 +75,16 @@ const Nav = () => {
           />
           {showMenu && (
             <div className="absolute  dark:bg-zinc-700 bg-zinc-300  px-4 py-1  mt-1  right-0 rounded-xl shadow-md">
-              <button onClick={_hendelLogout} className="dark:text-white text-black my-1 whitespace-nowrap flex gap-2 items-center">
-                Log out <HiOutlineLogout />
-              </button>
+              
               <Link
                 to="/profile"
                 className="dark:text-white text-black my-1 flex gap-2 items-center"
               >
                 Profile <RiProfileLine />
               </Link>
+              <button onClick={_hendelLogout} className="dark:text-white text-black my-1 whitespace-nowrap flex gap-2 items-center">
+                Log out <HiOutlineLogout />
+              </button>
             </div>
           )}
         </div>

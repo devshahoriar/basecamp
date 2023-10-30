@@ -35,7 +35,7 @@ const FileItem = ({ file }: { file: any }) => {
         <p className='line-clamp-2'>{description}</p>
       </div>
       <div className='flex gap-2'>
-        <a href={url} className='btn' download>Downlode</a>
+        <a href={url} className='btn' target='_blank'  download>Downlode</a>
         <button className='btn' onClick={_hendelDelete}>Delete</button>
       </div>
     </div>
@@ -50,6 +50,7 @@ const DropModel = ({ set }: any) => {
   const [description, setDescription] = useState('')
   const { id } = useParams() || {}
   const queryClient = useQueryClient()
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     setError('')
@@ -57,6 +58,7 @@ const DropModel = ({ set }: any) => {
 
   const _hendelUplode = async () => {
     setError('')
+    setLoading(true)
     setUplodeProgress(0)
     try {
       if (acceptedFiles.length === 0) {
@@ -89,7 +91,7 @@ const DropModel = ({ set }: any) => {
         }
       })
       set(false)
-      queryClient.invalidateQueries(['/project/files', id])
+      queryClient.invalidateQueries('/project/files')
     } catch (error: any) {
       setUplodeProgress(0)
 
@@ -100,6 +102,7 @@ const DropModel = ({ set }: any) => {
         setError(error.response.data.message)
       }
     }
+    setLoading(false)
   }
 
 
@@ -134,7 +137,7 @@ const DropModel = ({ set }: any) => {
             {uplodeProgress > 0 && <p>{uplodeProgress}% uploded</p>}
             <p className='text-red-700'>{error}</p>
           </div>
-          <button onClick={_hendelUplode} className='btn mt-5'>Add</button>
+          <button onClick={_hendelUplode} disabled={loading} className='btn mt-5'>Add</button>
         </div>
       </div>
     </div>

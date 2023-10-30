@@ -63,7 +63,9 @@ const Model = ({ set }: any) => {
 
         if (data?.length >= 1) {
           const transfrom = data.map(item => {
-            return { value: item._id, label: item.email }
+            console.log(item);
+            
+            return { value: item._id, label: item.email, _id: item?._id ? item._id : item.value }
           })
           setSearResult(transfrom)
         }
@@ -75,6 +77,11 @@ const Model = ({ set }: any) => {
     fetch()
   }, [debounchSearch])
 
+  useEffect(() => {
+    console.log(addedUser);
+
+  }, [addedUser])
+
 
 
   const _hendelAddUser = async () => {
@@ -84,6 +91,8 @@ const Model = ({ set }: any) => {
     }
     try {
       setError('')
+
+
       const { data } = await Axios({
         url: "/project/setuser/" + id,
         method: 'put',
@@ -97,7 +106,7 @@ const Model = ({ set }: any) => {
           url: "/project/pro/" + id,
           withCredentials: true
         })
-        queryClient.setQueryData('members', project?.members?.map(item => { return { value: item._id, label: item.email, avatar: item?.avatar } }))
+        queryClient.setQueryData('members', project?.members?.map(item => { return { _id: item._id, label: item.email} }))
         queryClient.setQueryData('project', project)
         set(false)
       }
@@ -126,7 +135,7 @@ const Model = ({ set }: any) => {
         onChange={(p, v) => setAddedUser(p as any)}
         onInputChange={(e) => setSearch(e)}
         placeholder='Enter email'
-        noOptionsMessage={({ inputValue }) => {
+        noOptionsMessage={() => {
           if (debounchSearch.length < 3) {
             return <h1>Enter 3 letter or more</h1>
           }
@@ -137,6 +146,8 @@ const Model = ({ set }: any) => {
       <button onClick={_hendelAddUser} className='btn mt-3'>Done</button>
     </div></ModelBase>
 }
+
+
 
 
 export default BoardHeader

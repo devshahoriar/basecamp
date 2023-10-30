@@ -23,8 +23,7 @@ const ModelsForInvite = ({ set }: any) => {
       })
       if(data?.ex) setInfo(data.message)
       if(data?.email) setTimeout(() => set(false), 1000)
-      console.log(data);
-
+   
     } catch ({ response }) {
       setError(response.data.error);
 
@@ -43,7 +42,7 @@ const ModelsForInvite = ({ set }: any) => {
           </button>
         </div>
         <div className="p-3">
-          <input onChange={e => setEmail(e.target.value)} type="Email" className="input input-bordered w-full" placeholder="Email" />
+          <input autoFocus  onChange={e => setEmail(e.target.value)} type="Email" className="input input-bordered w-full" placeholder="Email" />
           <input onChange={e => setNote(e.target.value)} type="Custom Note" className="input input-bordered w-full mt-4" placeholder="Note" />
           <p className="text-[#e93333] h-4">{error}</p>
           <p className="">{info}</p>

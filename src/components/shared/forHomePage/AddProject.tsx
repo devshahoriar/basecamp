@@ -54,6 +54,7 @@ const AddProject = ({ set }: { set: any }) => {
             <span className="label-text">Project name</span>
           </label>
           <input
+          autoFocus
             onChange={(e) => setName(e.target.value)}
             type="text"
             placeholder="Project 1"

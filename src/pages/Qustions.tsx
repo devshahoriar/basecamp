@@ -52,14 +52,36 @@ const ItemQustion = ({ set, data, setActiveAnsId }: any) => {
         </div>
       </div>
       <div className='flex gap-1 md:gap-2'>
-        <img className='h-7 w-7 object-cover rounded-md' src="https://picsum.photos/200" alt="" />
-        <p className='hidden md:block'>Shuvo</p>
+        <img className='h-7 w-7 object-cover rounded-md' src={data?.auther?.avatar ? data?.auther?.avatar : "https://cdn-icons-png.flaticon.com/512/149/149071.png"} alt="" />
+        <p className='hidden md:block'>{data?.auther?.name}</p>
       </div>
     </div>
   </button>
 }
 
 const ItemAnsware = ({ id, d }, any) => {
+  const queryClient = useQueryClient()
+
+  const _hendelDelete = async () => {
+    try {
+      const { data } = await Axios({
+        url: "/qustion/ans/" + id,
+        method: 'delete',
+        withCredentials: true
+      })
+      if (data?.success) {
+        await queryClient.invalidateQueries('ans')
+        await queryClient.invalidateQueries('qustions')
+      }
+
+
+
+    } catch (error) {
+      console.log(error);
+
+    }
+
+  }
 
 
   return (
@@ -67,7 +89,10 @@ const ItemAnsware = ({ id, d }, any) => {
       <div className='flex items-center text-sm justify-between'>
         <div className='flex items-center gap-1'>  <p>Answare by {d?.auther?.name}</p>
           <img src="https://picsum.photos/200" className='h-5 w-5 object-cover rounded-md' alt="" /></div>
-        <button className='btn btn-sm'>Edit</button>
+        <div className='flex gap-3'>
+          <button className='btn btn-sm'>Edit</button>
+          <button className='btn btn-sm' onClick={_hendelDelete}>Delete</button>
+        </div>
       </div>
       <div>
         <p className='text-black dark:text-white text-lg mt-2'>{d?.title}</p>
@@ -86,6 +111,7 @@ const AnsBox = ({ setShowFullQustion, makeSolution, setMakeSolution, id }) => {
   const [qusTitle, setQusTitle] = useState('')
   const [inCode, setInCode] = useState('')
   const [error, setErrr] = useState('')
+  const [loading, setLoading] = useState(false)
   const queryClient = useQueryClient()
 
   const { data, isError, isLoading, isFetching } = useQuery('ans', async () => {
@@ -100,8 +126,10 @@ const AnsBox = ({ setShowFullQustion, makeSolution, setMakeSolution, id }) => {
 
   const _hendelSubmit = async () => {
     setErrr('')
+    setLoading(true)
     if (qusTitle === "" && inCode === "") {
       setErrr("Fill all fild.")
+      setLoading(false)
       return
     }
     const { data } = await Axios({
@@ -118,12 +146,11 @@ const AnsBox = ({ setShowFullQustion, makeSolution, setMakeSolution, id }) => {
       setErrr('')
       setQusTitle('')
       setInCode('')
+      setLoading(false)
       setMakeSolution(true)
     }
 
   }
-
-
 
   return <ModelBase set={setShowFullQustion}>
     <div className='w-[calc(100vw-20px)] md:w-[600px] bg-slate-300   max-h-[500px] shadow-lg rounded-md relative pb-5'>
@@ -143,12 +170,14 @@ const AnsBox = ({ setShowFullQustion, makeSolution, setMakeSolution, id }) => {
               <div className='flex gap-5 flex-col '>
                 {isLoading && <p>Loading..</p>}
                 {isError && <p>Something error.</p>}
-                {data?.length === 0 && <h1 className='dark:bg-slate-700 rounded-md p-2 my-3'>No solution</h1>}
+                {data?.length === 0 && <h1 className='bg-slate-200 rounded-md p-2 my-3'>No solution</h1>}
                 {/* */}
                 {!isFetching && data?.map((e, i) => <ItemAnsware d={e} id={e._id} key={i} />)}
               </div>
-
-              <button onClick={() => setMakeSolution(false)} className='btn mt-3'>Make a solution</button>
+              <div className='flex gap-2'>
+                <button onClick={() => setMakeSolution(false)} className='btn mt-3'>Make a solution</button>
+                <button onClick={() => setMakeSolution(false)} className='btn mt-3 hover:bg-red-500'>Delete Qustion</button>
+              </div>
             </div>)
             :
             (
@@ -159,8 +188,8 @@ const AnsBox = ({ setShowFullQustion, makeSolution, setMakeSolution, id }) => {
                 <textarea value={inCode} onChange={e => setInCode(e.target.value)} placeholder='Your Code.' rows={4} cols={50} className='input w-full h-autodd !h-auto ' />
                 <p className='text-red-700'>{error}</p>
                 <div className=' flex gap-5 mt-5'>
-                  <button onClick={_hendelSubmit} className='btn'>Done</button>
-                  <button className='btn' onClick={() => setMakeSolution(true)}>Back</button></div>
+                  <button disabled={loading} onClick={_hendelSubmit} className='btn'>Done</button>
+                  <button disabled={loading} className='btn' onClick={() => setMakeSolution(true)}>Back</button></div>
               </div>
             )
 
@@ -179,6 +208,7 @@ const Qustions = () => {
   const [qustionTitle, setQustionTitle] = useState('')
   const [tags, setTags] = useState(['JavaScript'])
   const [errro, setError] = useState('')
+  const [loading, setLoading] = useState(false)
   const { id } = useParams() || {}
   const queryClient = useQueryClient()
   const [activeAnsId, setActiveAnsId] = useState('')
@@ -196,11 +226,15 @@ const Qustions = () => {
 
   const _hendelAddQustion = async () => {
     setError('')
-    if (qustionTitle === '')
+    setLoading(true)
+    if (qustionTitle === '') {
       setError('Fill all fild.')
+      setLoading(false)
+      return
+    }
 
     try {
-      const { data } = await Axios({
+      await Axios({
         url: '/qustion',
         method: "post",
         withCredentials: true,
@@ -213,7 +247,7 @@ const Qustions = () => {
     } catch (error) {
       error.message !== null ? setError(error.message) : setError('Something error')
     }
-
+    setLoading(false)
 
   }
 
@@ -261,7 +295,7 @@ const Qustions = () => {
           </button>
           <div className='mt-5'>
             <h1 className='text-xl'>Add a qustion</h1>
-            <input onChange={e => setQustionTitle(e.target.value)} type="text" placeholder="Your qustion here " className="input input-bordered mt-3 w-full focus:outline-none dark:bg-slate-900 " />
+            <input onChange={e => setQustionTitle(e.target.value)} type="text" placeholder="Your qustion here " className="input input-bordered mt-3 w-full focus:outline-none" />
             <Select
               defaultValue={[colourOptions[3]]}
               isMulti

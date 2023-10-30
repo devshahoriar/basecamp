@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, useMatch, useParams } from 'react-router-dom'
 import {
   CalendetIcon,
   CampfireIcon,
@@ -16,10 +16,15 @@ const BoxLink = ({
   children: React.ReactNode
   title: string
 }) => {
+  const match = useMatch(to)
+  
+  
   return (
     <Link to={to} className="flex flex-col items-center">
+      <div className={`flex flex-col items-center hover:text-blue-600 ${match ? "text-blue-600 font-bold" : ""}`}>
       {children}
       <p className="text-sm hidden md:block">{title}</p>
+      </div>
     </Link>
   )
 }
